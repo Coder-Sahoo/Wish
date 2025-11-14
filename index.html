@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Best Friend!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Happy Birthday💓</h1>
+            <div class="subtitle">To my amazing best friend🕺🏻💃🏻</div>
+        </div>
+        
+            
+            <div class="message">
+                <p>My dearest friend,</p>
+                <p>On this special day, I want to remind you how incredibly amazing you are. You bring so much light, laughter, and love into my life, and I'm endlessly grateful for our friendship🫂🫂.</p>
+                <p>May your birthday be as beautiful and wonderful as you are✨✨. May all your dreams come true and may this new chapter of your life be filled with joy, success, and unforgettable moments💫💫</p>
+                <p>Thank you for being the incredible person you are. I cherish our friendship more than words can express🤍</p>
+                <p>With all my love and Care for you 👘 have it let's goo 😸</p>
+                <p>Your best friend✨✨ </p>
+            </div>
+            
+            <div class="memories">
+                <h2>Some of My Favorite Memories With You😸</h2>
+                <ul class="memory-list">
+                    <li>Our late-night conversations about everything and nothing😸</li>
+                    <li>That spontaneous talks we did about anime and you never felt bored with me 🫶🏻</li>
+                    <li>All the times you made me laugh no matter what the situation is you are like chill pill dudee🤍</li>
+                    <li>Our talks did you remeber how i react t your msgs you be like i am not getting bored let's goo typo talks lol🩵</li>
+                    <li>Celebrating each other's successes like they were our own to be honest you scored 5th rank and you did very very great i am happy about it and i hope you do more great things👘 </li>
+                </ul>
+            </div>
+            
+            <button class="wish-button" id="wishBtn">Make a Birthday Wish!</button>
+        </div>
+        
+        <div class="footer">
+            Made with love for the only best friend🧣
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('wishBtn').addEventListener('click', function() {
+            createConfetti();
+            this.textContent = "Your wish will come true!";
+            this.style.background = "linear-gradient(to right, #4facfe, #00f2fe)";
+            
+            // Play a birthday tune (simple version)
+            playBirthdayTune();
+        });
+
+        function createConfetti() {
+            const colors = ['#ff7eb3', '#ff758c', '#ffafbd', '#ffc3a0', '#4facfe', '#00f2fe'];
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                confetti.style.height = confetti.style.width;
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+
+        function playBirthdayTune() {
+            // Simple birthday tune using the Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const notes = [
+                { frequency: 523.25, duration: 0.5 }, // C5
+                { frequency: 523.25, duration: 0.5 }, // C5
+                { frequency: 587.33, duration: 1 },   // D5
+                { frequency: 523.25, duration: 1 },   // C5
+                { frequency: 698.46, duration: 1 },   // F5
+                { frequency: 659.26, duration: 2 }    // E5
+            ];
+            
+            let time = audioContext.currentTime;
+            
+            notes.forEach(note => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = note.frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, time);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, time + note.duration);
+                
+                oscillator.start(time);
+                oscillator.stop(time + note.duration);
+                
+                time += note.duration;
+            });
+        }
+    </script>
+</body>
+</html>
